@@ -4,10 +4,20 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import localFont from 'next/font/local'
 
+type Question = {
+  id: number
+  type: string
+  question: string
+  image: string
+  options: string[]
+  answer: number
+}
+
 const pixelFont = localFont({
   src: '../fonts/PressStart2P-Regular.ttf',
   display: 'swap',
 })
+
 
 const originalQuestions = [
   {
@@ -101,8 +111,10 @@ function shuffleArray<T>(array: T[]): T[] {
   return shuffled
 }
 
+
+
 export default function QuizPage() {
-  const [questions, setQuestions] = useState([])
+  const [questions, setQuestions] = useState<Question[]>([])
   const [correctCount, setCorrectCount] = useState(0)
   const [isFinished, setIsFinished] = useState(false)
   const [current, setCurrent] = useState(0)
