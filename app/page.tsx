@@ -118,7 +118,7 @@ export default function QuizPage() {
   const [correctCount, setCorrectCount] = useState(0)
   const [isFinished, setIsFinished] = useState(false)
   const [current, setCurrent] = useState(0)
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState<number | null>(null)
   const [timeLeft, setTimeLeft] = useState(5)
   const [showAnswer, setShowAnswer] = useState(false)
 
@@ -140,7 +140,7 @@ export default function QuizPage() {
 
   const q = questions[current]
 
-  const handleSelect = (index) => {
+  const handleSelect = (index: number) => {
     if (selected === null) {
       setSelected(index)
       setShowAnswer(true)
@@ -221,20 +221,20 @@ export default function QuizPage() {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              {q.options.map((opt, idx) => (
+            {q.options.map((opt: string, index: number) => (
                 <button
-                  key={idx}
-                  onClick={() => handleSelect(idx)}
+                  key={index}
+                  onClick={() => handleSelect(index)}
                   disabled={selected !== null}
                   className={`px-4 py-3 rounded text-black text-xs tracking-wide border-4 shadow-md transition-all
-                    ${selected === idx
-                      ? idx === q.answer
+                    ${selected === index
+                      ? index === q.answer
                         ? 'bg-green-300 border-green-700'
                         : 'bg-red-300 border-red-700'
                       : 'bg-pink-200 hover:bg-pink-300 border-pink-600'}
                     hover:scale-105 active:scale-95`}
                 >
-                  {String.fromCharCode(65 + idx)}. {opt}
+                  {String.fromCharCode(65 + index)}. {opt}
                 </button>
               ))}
             </div>
